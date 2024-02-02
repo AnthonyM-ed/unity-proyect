@@ -35,7 +35,7 @@ public class ControlPlay : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddRelativeForce(Vector3.up * 0.2f, ForceMode.VelocityChange);
+            rb.AddRelativeForce(Vector3.up * 0.5f, ForceMode.VelocityChange);
 
             var rotarIzq = transform.rotation;
             rotarIzq.x += Time.deltaTime * 0.2f;
@@ -56,7 +56,7 @@ public class ControlPlay : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddRelativeForce(Vector3.down * 0.2f, ForceMode.VelocityChange);
+            rb.AddRelativeForce(Vector3.down * 0.5f, ForceMode.VelocityChange);
 
             var rotarDer = transform.rotation;
             rotarDer.x -= Time.deltaTime * 0.2f;
@@ -101,7 +101,7 @@ public class ControlPlay : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddRelativeForce(Vector3.right * 0.5f, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.right * 0.2f, ForceMode.Impulse);
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
@@ -116,7 +116,7 @@ public class ControlPlay : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddRelativeForce(Vector3.left * 0.5f, ForceMode.Impulse);
+            rb.AddRelativeForce(Vector3.left * 0.2f, ForceMode.Impulse);
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
