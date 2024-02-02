@@ -7,7 +7,6 @@ public class ControlPlay : MonoBehaviour
     Rigidbody rb;
     AudioSource audioSource;
     Quaternion rotacionInicial;
-    float maxRotacionX;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +14,6 @@ public class ControlPlay : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         rotacionInicial = transform.rotation;
-        maxRotacionX = 45f;
     }
 
     // Update is called once per frame
