@@ -148,21 +148,18 @@ public class ControlPlay : MonoBehaviour
             explosionParticles.transform.position = posicionNave;
             explosionParticles.Play();
         }
-        // Esperar un tiempo antes de finalizar el juego
         gameObject.SetActive(false);
 
         yield return new WaitForSeconds(1f);
 
-        // Lógica para finalizar el juego (cargar un menú de juego, reiniciar la escena, etc.)
         print("Game Over");
+
         Application.Quit();
     }
     private IEnumerator CambiarEscena()
     {
-        // Esperar 0.5 segundos
         yield return new WaitForSeconds(0.5f);
 
-        // Cambiar a la escena llamada "Nivel2"
         SceneManager.LoadScene("Nivel2");
     }
 }

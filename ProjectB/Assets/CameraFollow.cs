@@ -21,7 +21,6 @@ public class CameraFollow : MonoBehaviour
             offset.z
         );
 
-        // Mueve suavemente la posición de la cámara hacia la posición objetivo
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 }
