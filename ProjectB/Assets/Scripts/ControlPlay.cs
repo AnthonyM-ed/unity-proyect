@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControlPlay : MonoBehaviour
 {
     Rigidbody rb;
     AudioSource audioSource;
     Quaternion rotacionInicial;
+    ParticleSystem explosionParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class ControlPlay : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         rotacionInicial = transform.rotation;
+        explosionParticles = GameObject.Find("Explosion").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -72,10 +74,9 @@ public class ControlPlay : MonoBehaviour
         }
     }
 
-    // Función para rotar suavemente hacia una rotación objetivo
     private IEnumerator RotarSuavemente(Quaternion rotacionObjetivo)
     {
-        float duracionRotacion = 0.5f; // Puedes ajustar la duración según sea necesario
+        float duracionRotacion = 0.5f;
         float tiempoPasado = 0f;
 
         Quaternion rotacionInicial = transform.rotation;
@@ -85,13 +86,10 @@ public class ControlPlay : MonoBehaviour
             tiempoPasado += Time.deltaTime;
             float porcentajeCompletado = tiempoPasado / duracionRotacion;
 
-            // Aplicar la rotación suavemente usando Slerp
             transform.rotation = Quaternion.Slerp(rotacionInicial, rotacionObjetivo, porcentajeCompletado);
 
             yield return null;
         }
-
-        // Asegurarse de que la rotación final sea exactamente la rotación objetivo
         transform.rotation = rotacionObjetivo;
     }
 
@@ -132,11 +130,39 @@ public class ControlPlay : MonoBehaviour
         {
             case "ColisionSegura":
                 print ("OK");
+                StartCoroutine(CambiarEscena());
                 break;
 
             case "ColisionPeligrosa":
                 print("HIT");
+                StartCoroutine(ProcesoColisionPeligrosa());
                 break;
         }
+    }
+
+    private IEnumerator ProcesoColisionPeligrosa() 
+    {
+        Vector3 posicionNave = transform.position;
+        if (explosionParticles != null)
+        {
+            explosionParticles.transform.position = posicionNave;
+            explosionParticles.Play();
+        }
+        // Esperar un tiempo antes de finalizar el juego
+        gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        // Lógica para finalizar el juego (cargar un menú de juego, reiniciar la escena, etc.)
+        print("Game Over");
+        Application.Quit();
+    }
+    private IEnumerator CambiarEscena()
+    {
+        // Esperar 0.5 segundos
+        yield return new WaitForSeconds(0.5f);
+
+        // Cambiar a la escena llamada "Nivel2"
+        SceneManager.LoadScene("Nivel2");
     }
 }
