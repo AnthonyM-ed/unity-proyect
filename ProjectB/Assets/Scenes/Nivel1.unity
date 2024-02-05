@@ -12324,7 +12324,7 @@ GameObject:
   - component: {fileID: 882877039}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: ColisionPeligrosa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30017,7 +30017,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2791998636325621349, guid: 9fbdf4daee352fd47824ba35a09cf25e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.1
+      value: -29.5
       objectReference: {fileID: 0}
     - target: {fileID: 2791998636325621349, guid: 9fbdf4daee352fd47824ba35a09cf25e, type: 3}
       propertyPath: m_LocalPosition.y
