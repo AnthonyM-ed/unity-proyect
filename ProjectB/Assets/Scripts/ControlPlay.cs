@@ -5,17 +5,19 @@ using UnityEngine.SceneManagement;
 public class ControlPlay : MonoBehaviour
 {
     Rigidbody rb;
-    AudioSource audioSource;
+    AudioSource audioRocket;
     Quaternion rotacionInicial;
     ParticleSystem explosionParticles;
+    AudioSource sonidoExplosion;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
+        audioRocket = GetComponent<AudioSource>();
         rotacionInicial = transform.rotation;
         explosionParticles = GameObject.Find("Explosion").GetComponent<ParticleSystem>();
+        sonidoExplosion = GameObject.Find("Explosion").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -41,14 +43,14 @@ public class ControlPlay : MonoBehaviour
             rotarIzq.x += Time.deltaTime * 0.2f;
             transform.rotation = rotarIzq;
 
-            if (!audioSource.isPlaying)
+            if (!audioRocket.isPlaying)
             {
-                audioSource.Play();
+                audioRocket.Play();
             }
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            audioSource.Stop();
+            audioRocket.Stop();
             StartCoroutine(RotarSuavemente(rotacionInicial));
         }
     }
@@ -62,14 +64,14 @@ public class ControlPlay : MonoBehaviour
             rotarDer.x -= Time.deltaTime * 0.2f;
             transform.rotation = rotarDer;
 
-            if (!audioSource.isPlaying)
+            if (!audioRocket.isPlaying)
             {
-                audioSource.Play();
+                audioRocket.Play();
             }
         }
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            audioSource.Stop();
+            audioRocket.Stop();
             StartCoroutine(RotarSuavemente(rotacionInicial));
         }
     }
@@ -98,14 +100,14 @@ public class ControlPlay : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             rb.AddRelativeForce(Vector3.right * 0.05f, ForceMode.VelocityChange);
-            if (!audioSource.isPlaying)
+            if (!audioRocket.isPlaying)
             {
-                audioSource.Play();
+                audioRocket.Play();
             }
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            audioSource.Stop();
+            audioRocket.Stop();
         }
     }
     private void atras()
@@ -113,14 +115,14 @@ public class ControlPlay : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rb.AddRelativeForce(Vector3.left * 0.05f, ForceMode.VelocityChange);
-            if (!audioSource.isPlaying)
+            if (!audioRocket.isPlaying)
             {
-                audioSource.Play();
+                audioRocket.Play();
             }
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            audioSource.Stop();
+            audioRocket.Stop();
         }
     }
 
@@ -135,6 +137,7 @@ public class ControlPlay : MonoBehaviour
 
             case "ColisionPeligrosa":
                 print("HIT");
+                sonidoExplosion.Play();
                 StartCoroutine(ProcesoColisionPeligrosa());
                 break;
         }
